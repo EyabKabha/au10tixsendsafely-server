@@ -1,22 +1,21 @@
+
 var express = require('express');
 var router = express.Router();
-
-var accountsController = require('../controllers/account');
+var trackerController = require('../controllers/tracker');
 
 router.get('/', async (req, res) => {
     try {
-        const data = await accountsController.getAllAccounts()
-        res.status(200).json(data)
+        const allData = await trackerController.allDataTracker()
+        res.status(200).json(allData);
     } catch (error) {
         res.status(500).json(error.message)
     }
 })
 
-
 router.post('/new', async (req, res) => {
     try {
-        const newAccount = await accountsController.addNewAccount(req.body)
-        res.status(200).json(newAccount);
+        const addData = await trackerController.addNewData(req.body)
+        res.status(200).json(addData);
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -24,17 +23,17 @@ router.post('/new', async (req, res) => {
 
 router.put('/edit/:id', async (req, res) => {
     try {
-        const account = await accountsController.updateAccount(req.body, req.params.id)
-        res.status(200).json(account);
-
+        const deleteTracker = await trackerController.updateTracker(req.body, req.params.id)
+        res.status(200).json(deleteTracker);
     } catch (error) {
         res.status(500).json(error.message);
     }
 })
+
 router.delete('/delete/:id', async (req, res) => {
     try {
-        const deleteAccount = accountsController.deleteAccount(req.params.id);
-        res.status(200).json(deleteAccount);
+        const deleteTracker = await trackerController.deleteTrackerByID(req.params.id);
+        res.status(200).json(deleteTracker);
     } catch (error) {
         res.status(500).json(error.message);
     }
