@@ -18,7 +18,28 @@ const addNewAccount = async (account) => {
             first_name: account.first_name,
             last_name: account.last_name,
         })
-        return 'Successfully created'
+        return 'created Successfully'
+    } catch (error) {
+        throw new Error(`${error.message}`);
+    }
+}
+
+//Updte Account
+const updateAccount = async (account, accountID) => {
+    try {
+
+        let isAccount = await accounts.findOne({ where: { id: accountID } });
+
+        if (!isAccount) throw new Error('Account Manager not found!');
+
+        account.map(async (acc) => {
+            await accounts.update({
+                first_name: acc.first_name,
+                last_name: acc.last_name,
+            }, { returning: true, where: { id: accountID } })
+        })
+        return 'updated Successfully';
+
     } catch (error) {
         throw new Error(`${error.message}`);
     }
@@ -32,15 +53,14 @@ const deleteAccount = async (accountID) => {
                 id: accountID
             },
         });
-
         if (!isExist) throw new Error('Account Manager not found!');
-        await accounts.update({}, { returning: true, where: { id: accountID } })
-        return 'Successfully deleted'
+        await accounts.destroy({
+            where: { id: accountID }
+        })
+        return 'deleted Successfully';
     } catch (error) {
         throw new Error(`${error.message}`)
     }
 }
 
-
-
-module.exports = { getAllAccounts, addNewAccount, deleteAccount };
+module.exports = { getAllAccounts, addNewAccount, updateAccount, deleteAccount };
