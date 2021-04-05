@@ -11,7 +11,6 @@ const allDataTracker = async () => {
     }
 }
 
-
 const addNewData = async (tracker) => {
     try {
         let newDataAdded = await data_tracker.create({
@@ -35,9 +34,7 @@ const updateTracker = async (trackerData, trackerID) => {
         let isDataTracker = await data_tracker.findOne({ where: { id: trackerID } })
 
         if (!isDataTracker) throw new Error('Customer not found');
-
         trackerData.map(async (customerData) => {
-            console.log(customerData.work_space_role)
             await data_tracker.update({
                 work_space_role: customerData.work_space_role,
                 email: customerData.email,

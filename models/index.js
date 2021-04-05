@@ -11,7 +11,11 @@ const accounts = Accounts(db, Sequelize);
 const DataTracker = require('./data_tracker');
 const data_tracker = DataTracker(db,Sequelize);
 
+const Login = require('./login');
+const login = Login(db,Sequelize);
+
 module.exports = {
     accounts,
     data_tracker,
+    login
 }

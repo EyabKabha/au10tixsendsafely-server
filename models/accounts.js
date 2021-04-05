@@ -11,7 +11,7 @@ module.exports = (db, type) => {
         last_name: {
             type: type.STRING(45)
         }
-    },{timestamps:false, underscored: true})
+    },{timestamps:false, underscored: true,freezeTableName:true})
 }
 
 
