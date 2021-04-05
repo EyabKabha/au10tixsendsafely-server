@@ -1,6 +1,6 @@
 module.exports = (db, type) => {
     
-    return db.define('data_tracker', {
+    return db.define('data_trackers', {
         id: {
             type: type.INTEGER,
             autoIncrement: true,
@@ -24,7 +24,7 @@ module.exports = (db, type) => {
         customer: {
             type: type.STRING(45)
         },
-    }, { timestamps: false, underscored: true })
+    }, { timestamps: false, underscored: true ,freezeTableName:true})
 }
 
 
